@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            text-align: center;
+            background-color: tomato;
+        }
+
+        .top {
+            width: 100%;
+            height: 20%;
+            background-color: rgb(255, 0, 0);
+        }
+
+        input,
+        label {
+            text-align: center;
+            outline: none;
+            font-size: 25px;
+            border: none;
+            padding: 5px;
+            margin: 5px;
+            color: black
+        }
+
+        input {
+            background-color: rgb(255, 146, 146);
+            width: 40vmin;
+        }
+
+        #op {
+            font-size: 20vmin;
+            color: white;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 20px;
+            margin: 10px;
+            border: none;
+            background-color: rgb(179, 178, 178);
+            color: white;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: rgb(142, 142, 142);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top">
+        <label for="p1"><span style='font-size:50px;'>&#128102;</span></label>
+        <input type="text" id="p1" spellcheck="false"><br>
+        <label for="p2"><span style='font-size:50px;'>&#128103;</span></label>
+        <input type="text" id="p2" spellcheck="false"><br>
+        <button onclick="calc()" id="btn">Calculate</button>
+    </div>
+    <p id="op"></p>
+    <p id="error" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512"
+            style="enable-background:new 0 0 512 512;" xml:space="preserve" width="50vw" height="50vh">
+            <g>
+                <g>
+                    <path
+                        d="M512,400.721V54.333H0v346.388h166.334v26.946h-27.667v30h234.667v-30h-27.667v-26.946H512z M315.667,424.054H196.334    v-23.333h119.333V424.054z M30,370.721V84.333h452v286.388H30z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M187.065,238.675v-66.23h-21.312l-51.968,66.23v27.869h42.132v20.328h31.148v-20.328h14.427v-27.869H187.065z     M159.524,238.675h-15.082l15.082-19.672V238.675z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M297.885,198.1c-2.187-6.066-5.22-11.311-9.098-15.738c-3.881-4.426-8.471-7.895-13.771-10.41    c-5.302-2.513-11.065-3.771-17.295-3.771c-6.229,0-11.996,1.258-17.295,3.771c-5.302,2.515-9.893,5.984-13.77,10.41    c-3.881,4.426-6.914,9.672-9.099,15.738c-2.188,6.065-3.279,12.705-3.279,19.918c0,7.213,1.092,13.853,3.279,19.919    c2.185,6.065,5.218,11.312,9.099,15.738c3.878,4.426,8.468,7.869,13.77,10.328c5.299,2.459,11.066,3.689,17.295,3.689    c6.23,0,11.993-1.23,17.295-3.689c5.299-2.459,9.89-5.901,13.771-10.328c3.878-4.426,6.911-9.673,9.098-15.738    c2.186-6.066,3.279-12.705,3.279-19.919C301.164,210.805,300.07,204.165,297.885,198.1z M266.328,233.347    c-2.241,3.881-5.11,5.82-8.606,5.82c-3.717,0-6.696-1.938-8.935-5.82c-2.242-3.878-3.361-8.988-3.361-15.328    c0-6.337,1.119-11.476,3.361-15.41c2.239-3.935,5.218-5.902,8.935-5.902c3.496,0,6.365,1.967,8.606,5.902    c2.239,3.934,3.361,9.073,3.361,15.41C269.689,224.359,268.567,229.469,266.328,233.347z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M383.788,238.675v-66.23h-21.311l-51.967,66.23v27.869h42.132v20.328h31.146v-20.328h14.427v-27.869H383.788z     M356.247,238.675h-15.082l15.082-19.672V238.675z" />
+                </g>
+            </g>
+        </svg></p>
+    <script>
+        function calc() {
+            let p1 = '', p2 = '', x, y, nm;
+            p1 = document.getElementById("p1").value.toLowerCase().replace(/\s/g, '');
+            p2 = document.getElementById("p2").value.toLowerCase().replace(/\s/g, '');
+            x = p1.length;
+            y = p2.length;
+
+            document.getElementById("error").style.display = "none";
+            document.getElementById("op").style.display = "block";
+            nm = getToNumber(p1, p2);
+            while (Number(nm) > 100) {
+                nm = sumup(nm);
+            };
+            document.getElementById("btn").style.visibility = "hidden";
+            display(Number(nm));
+        }
+        function getToNumber(x, y) {
+            let n = '', xl, ml, nm = "", nml;
+            xl = x.split("");
+            yl = y.split("");
+            ml = xl.length < yl.length ? xl.filter((l) => yl.includes(l)) : yl.filter((l) => xl.includes(l));
+            nml = (x + y).length - ml.length * 2;
+            for (i in ml) {
+                nm += "2";
+            }
+            let j = 0;
+            while (j < nml) {
+                nm += "1";
+                j++;
+            };
+            return nm;
+        }
+        function sumup(n) {
+            let even, vl = "";
+            n.length % 2 === 0 ? even = true : even = false;
+            if (even) {
+                for (let k = 0; k < n.length / 2; k++) {
+                    vl += Number(n[k]) + Number(n[n.length - (k + 1)])
+                }
+            } else {
+                for (let l = 0; l < (n.length - 1) / 2; l++) {
+                    vl += Number(n[l]) + Number(n[n.length - (l + 1)]);
+                }
+                vl += n[(n.length + 1) / 2];
+            }
+            return vl;
+        }
+
+        function display(a) {
+            let i = 0;
+            let calc = setInterval(function () {
+                i += 1;
+                document.getElementById("op").innerText = i + "%";
+                if (i === a) {
+                    document.getElementById("btn").style.visibility = "visible";
+                    showStatus(a);
+                    clearInterval(calc);
+                };
+            }, 50);
+        }
+
+        function showStatus(x) {
+            let op;
+            op = document.getElementById("op");
+            if (x < 35) {
+                op.innerHTML = "&#128148;" + x + "%" + "&#128148;"
+            } else if (x < 70) {
+                op.innerHTML = "&#128147;" + x + "%" + "&#128147;"
+            } else {
+                op.innerHTML = "&#128151;" + x + "%" + "&#128151;"
+            }
+        }
+    </script>
+</body>
+
+</html>

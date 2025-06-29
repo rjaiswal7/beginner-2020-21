@@ -1,0 +1,17 @@
+{
+    "name":"Live html code editor",
+    "description":"It is a live html code editor.you can write your code and run it to see outpot,can also save the code as html file",
+    "author":"R Jaiswal",
+    "version":"0.0.1",
+    "manifest_version":2,
+    "icons":{
+        "80":"icons/icon1.png",
+        "128":"icons/icon2.png",
+        "256":"icons/icon3.png",
+        "384":"icons/icon4.png",
+        "512":"icons/icon5.png"
+    },
+    "browser_action":{
+        "default_popup":"popup/popup.html"
+    }
+}

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0px;
+            text-align: center;
+            background-color: teal;
+            width: 100%;
+            height: 100%;
+        }
+
+        table {
+            text-align: center;
+            outline: none;
+            border: 2px solid black;
+            margin: auto;
+            background-color: white;
+            font-size: 16px;
+        }
+
+        td,
+        th {
+            border: 2px solid black;
+            width: 100px;
+        }
+
+        .objs {
+            top: 0px;
+            left: 0px;
+            right: 0px;
+            height: auto;
+            border: solid 10px #ffc129;
+            margin: 0px;
+            align-items: center;
+            background-color: coral;
+            position: -webkit-sticky;
+            position: sticky;
+            z-index: 1;
+            min-width: 100vh;
+        }
+
+        .content{
+            position: relative;
+        }
+
+        button {
+            outline: none;
+            padding: 10px 5px;
+            background-color: #3957ff;
+            border: none;
+            color: white;
+        }
+
+        button:focus,
+        button:hover {
+            background-color: teal;
+        }
+
+        input {
+            text-align: center;
+        }
+
+        select {
+            background-color: #ffc129;
+        }
+
+        caption {
+            font-size: 21px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="objs">
+        <h1>Table Creator</h1>
+        <label for="clrOpt">Select Color: </label>
+        <label for="cl">
+            <select id="clrOpt">
+                <option value="backgroundColor">Background Color</option>
+                <option value="color">Font Color</option>
+            </select>
+        </label>
+        <input type="color" id="cl" oninput="changeColor()" value="#ffffff">
+        <label for="szOpt">Size: </label>
+        <label for="sz">
+            <select id="szOpt">
+                <option value="fontSize">Font Size</option>
+                <option value="width">Table Width(px)</option>
+                <option value="height">Table Height(px)</option>
+            </select>
+            <input type="number" id="sz" oninput="changeSize()" value="16">
+        </label>
+        <label for="bd">Select Border style: </label>
+        <select id="bd" onchange="changeBorder()">
+            <option value="solid">-Select-</option>
+            <option value="solid">solid</option>
+            <option value="dotted">dotted</option>
+            <option value="double">double</option>
+            <option value="dashed">dashed</option>
+            <option value="groove">groove</option>
+            <option value="ridge">ridge</option>
+            <option value="inset">inset</option>
+            <option value="outset">outset</option>
+            <option value="none">none</option>
+        </select><br>
+        <label for="rows">Rows : </label>
+        <input type="number" id="rows" value="4" max="50">
+        <label for="cols">Columns : </label>
+        <input type="number" id="cols" value="4" max="50">
+        <button onclick="create()">create</button>
+        <button onclick="save()">Save Table</button>
+    </div><br>
+    <div class="content">
+        <table contenteditable="true" id="output" spellcheck="false">
+            <caption>Routine(Demo Table)</caption>
+            <tr>
+                <th></th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+            </tr>
+            <tr>
+                <td>MONDAY</td>
+                <td>GEO SK</td>
+                <td>LSC NM</td>
+                <td>HIST PD</td>
+                <td>BENG/HINDI RSB/SKS</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>TUESDAY</td>
+                <td>ENG SB</td>
+                <td>BENG/HINDI RSB/SKS</td>
+                <td>Fine Arts SKM</td>
+                <td>COMP SD</td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>WEDNESDAY</td>
+                <td>MATHS PK</td>
+                <td>MATHS PK</td>
+                <td>ENG SM</td>
+                <td>LSC NM</td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>THURSDAY</td>
+                <td>MATHS PK</td>
+                <td>ENG SB</td>
+                <td>HIST PD</td>
+                <td>GEO SK</td>
+                <td>4:00 pm -Physical Education BM</td>
+            </tr>
+            <tr>
+                <td>FRIDAY</td>
+                <td>CHEM NC</td>
+                <td>PHY BB</td>
+                <td>LSC AB</td>
+                <td>BENG/HINDI RSB/SKS</td>
+                <td> </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <script>
+        console.log(document.getElementById("output").style.fontSize)
+        function create() {
+            let r, c, op;
+            r = document.getElementById("rows").value;
+            c = document.getElementById("cols").value;
+            op = document.getElementById("output");
+            op.innerHTML = "";
+            for (let i = 0; i < r; i++) {
+                let tr = document.createElement("tr");
+                for (let j = 0; j < c; j++) {
+                    let td = document.createElement("td");
+                    td.innerText = "   ";
+                    tr.appendChild(td);
+                }
+                op.appendChild(tr);
+            }
+            let trh = document.createElement("tr");
+            for (let k = 0; k < c; k++) {
+                th = document.createElement("th");
+                th.innerText = "h" + Number(k + 1)
+                trh.appendChild(th)
+            }
+            op.prepend(trh)
+
+            let cp = document.createElement("caption");
+            cp.innerText = "Caption"
+            document.getElementById("output").appendChild(cp);
+
+        }
+
+        function changeColor() {
+            let op, cl;
+            cl = document.getElementById("cl");
+            op = document.getElementById("clrOpt").value;
+            document.getElementById("output").style[op] = cl.value;
+        }
+        function changeSize() {
+            let op, sz, cpz;
+            op = document.getElementById("szOpt").value;
+            sz = document.getElementById("sz").value;
+            document.getElementById("output").style[op] = sz + "px";
+            cpz = Number(sz) + 5;
+            document.getElementsByTagName("caption")[0].style[op] = cpz + "px"
+        }
+        function changeBorder() {
+            let bd, td, th;
+            bd = document.getElementById("bd").value;
+            td = document.getElementsByTagName("td");
+            th = document.getElementsByTagName("th")
+            for (let i = 0; i < td.length; i++) {
+                td[i].style.borderStyle = bd;
+            }
+            for (l = 0; l < th.length; l++) {
+                th[l].style.borderStyle = bd;
+            }
+        }
+        function save() {
+            if (document.getElementById("output").innerText !== "") {
+                let tbl, tblCode, bg, cl, fs, tw, th, bd, cfs;
+                tbl = document.getElementById("output");
+                tblCode = tbl.innerHTML;
+                bg = tbl.style.backgroundColor;
+                cl = tbl.style.color;
+                fs = tbl.style.fontSize;
+                tw = tbl.style.width;
+                th = tbl.style.height;
+                bd = document.getElementById("bd").value;
+                cfs = document.getElementsByTagName("caption")[0].style.fontSize;
+                code = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MyTable</title>' + '<style>table{border:2px solid black;text-align:center;margin:auto;' +
+                    'background-color:' + bg +
+                    ';color:' + cl +
+                    ';font-size:' + fs +
+                    ';width:' + tw +
+                    ';height:' + th +
+                    ';} td,th{' +
+                    'border:2px black ' + bd + ';}</style></head><body><table>' + tblCode + '</table></body></html>';
+                download(code)
+            } else {
+                alert("Create a table first!")
+            }
+        }
+        function download(code) {
+            let txt, a;
+            a = document.createElement("a");
+            a.setAttribute("href", 'data:text;charset=UTF-8,' + encodeURIComponent(code));
+            a.setAttribute("download", "mytable.html");
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+
+</html>

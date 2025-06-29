@@ -1,0 +1,269 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+    <meta name="viewport">
+    <style>
+        .tab_name_box {
+            width: 200px;
+            height: 100%;
+            left: 0px;
+            top: 0px;
+            position: fixed;
+            box-shadow: 2px 2px 8px lightseagreen;
+        }
+
+        li {
+            list-style-type: disclosure-closed;
+            padding: 10px 14px;
+            box-shadow: 0px 0px 3px 0px grey;
+            margin: 20px 20px 20px 0px;
+            cursor: pointer;
+        }
+
+        li:hover {
+            transform: scale3d(1.05, 1.05, 1.05);
+        }
+
+        .tab_display_box {
+            left: 204px;
+            top: 0px;
+            height: 100%;
+            right: 0%;
+            position: absolute;
+            padding: 20px;
+        }
+
+        .tab_box {
+            display: none;
+        }
+
+        .options {
+            top: 0px;
+            right: 10px;
+            left: 204px;
+            position: sticky;
+            background-color: #009688;
+            padding: 10px;
+        }
+
+        a {
+            display: inline-block;
+            padding: 12px 14px;
+            background-color: white;
+            text-decoration: none;
+            color: black;
+            margin: 5px;
+        }
+
+        a:hover {
+            transform: scale3d(1.05, 1.05, 1.05);
+        }
+
+        h1 {
+            background-color: grey;
+            color: white;
+            padding: 10px 5px;
+        }
+
+        .content {
+            background-color: #0c2082;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 3px 3px 6px 1px grey;
+            color: white;
+        }
+
+        input {
+            padding: 10px 12px;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+            margin: 5px;
+        }
+
+        select {
+            padding: 5px;
+        }
+
+        button {
+            padding: 14px 12px;
+            border: none;
+            color: white;
+            background-color: crimson;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab_name_box">
+        <nav>
+            <ol>
+                <li onclick="show('mensuration_tab')">Mensuration</li>
+                <li onclick="show('algebra_tab')">Algebra</li>
+                <li onclick="show('trigo_tab')">Trigonometry</li>
+                <li>Calculus</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="tab_display_box">
+        <div class="tab_box" id="mensuration_tab" style="display:block">
+            <div class="options">
+                <a href="#area">Area</a>
+                <a href="#peri">Perimeter</a>
+                <a href="#vol">Volume</a>
+                <a href="#surf_area">Surface Area</a>
+                <a href="#dig_no">Diagonals</a>
+            </div>
+            <h1>Mensuration</h1>
+
+            <div class="content" id="area">
+                <h2>Area</h2>
+                <select id="area_shape" onchange="calcArea()">
+                    <option value="eq_tri">Equilateral Triangle(s)</option>
+                    <option value="sc_tri" selected>Scalene Triangle(a,b,c)</option>
+                    <option value="sqr">Square(s)</option>
+                    <option value="rect">Rectangle(l,b)</option>
+                </select>
+                <input type="text" id='area_inp' placeholder="Ex:3,4,5" oninput="calcArea()" /><br>
+                <p id="area_result"></p>
+            </div>
+
+            <div class="content" id="peri">
+                <h2>Perimeter</h2>
+                <select id="peri_shape" onchange="calcPeri()">
+                    <option value="eq_tri">Equilateral Triangle(s)</option>
+                    <option value="sc_tri" selected>Scalene Triangle(a,b,c)</option>
+                    <option value="sqr">Square(s)</option>
+                    <option value="rect">Rectangle(l,b)</option>
+                </select>
+                <input type="text" id='peri_inp' placeholder="Ex:3,4,5" oninput="calcPeri()" /><br>
+                <p id="peri_result"></p>
+            </div>
+
+            <div class="content" id="vol">
+                <h2>Volume</h2>
+                <select id="vol_shape" onchange="calcVol()">
+                    <option value="cube">Cube(s)</option>
+                    <option value="cuboid" selected>Cuboid(l,b,h)</option>
+                    <option value="sphere">Sphere(r)</option>
+                    <option value="hm_sphere">Hemi-Sphere(r)</option>
+                    <option value="cyln">Cylinder(r,h)</option>
+                </select>
+                <input type="text" id='vol_inp' placeholder="Ex:3,4,5" oninput="calcVol()" /><br>
+                <p id="vol_result"></p>
+            </div>
+
+            <div class="content" id="surf_area">
+                <h2>Surface Area</h2>
+                <select id="surf_area_shape" onchange="calcSurfArea()">
+                    <option value="cube">Cube(s)</option>
+                    <option value="cuboid" selected>Cuboid(l,b,h)</option>
+                    <option value="sphere">Sphere(r)</option>
+                    <option value="hm_sphere_hl">Hemi-Sphere-hollow(r)</option>
+                    <option value="hm_sphere_sl">Hemi-Sphere-Solid(r)</option>
+                    <option value="cyln_hl">Cylinder-Hollow(r,h)</option>
+                    <option value="cyln_sl">Cylinder-Solid(r,h)</option>
+                </select>
+                <input type="text" id='surf_area_inp' placeholder="Ex:3,4,5" oninput="calcSurfArea()" /><br>
+                <p id="surf_area_result"></p>
+            </div>
+
+            <div class="content" id="dig_no">
+                <h2>No of Diagonals</h2>
+                <label for="dig_no_inp">Enter the no. of Sides : </label>
+                <input type="text" id='dig_no_inp' placeholder="Ex:3" oninput="calcDigNo(this)" /><br>
+                <p id="dig_no_result"></p>
+            </div>
+
+
+
+        </div>
+        <div class="tab_box" id="algebra_tab">
+            <div class="options">
+                <a href='#apb_sq'>(a+b)<sup>2</sup></a>
+                <a href='#abc_sq'>(a+b+c)<sup>2</sup></a>
+                <a href='#amb_sq'>(a-b)<sup>2</sup></a>
+                <a href='#ln_eq'>2x+3=0</a>
+            </div>
+            <h1>Algebra</h1>
+
+            <div class="content" id="apb_sq">
+                <h2>(a+b)<sup>2</sup></h2>
+                <input type="text" id='apb_sq_inp' placeholder="Ex:2a+b" />
+                <button onclick="calc_apb_sq()">Solve</button>
+                <br>
+                <p id="apb_sq_result"></p>
+            </div>
+
+            <div class="content" id="abc_sq">
+                <h2>(a+b+c)<sup>2</sup></h2>
+                <input type="text" id='abc_sq_inp' placeholder="Ex:2a+2b+c" />
+                <button onclick="calc_abc_sq()">Solve</button>
+                <br>
+                <p id="abc_sq_result"></p>
+            </div>
+
+            <div class="content" id="amb_sq">
+                <h2>(a-b)<sup>2</sup></h2>
+                <input type="text" id='amb_sq_inp' placeholder="Ex:2a-b" />
+                <button onclick="calc_amb_sq()">Solve</button>
+                <br>
+                <p id="amb_sq_result"></p>
+            </div>
+
+
+            <div class="content" id="ln_eq">
+                <h2>Linear Equation Solver (one degree)</h2>
+                <input type="text" id='ln_eq_inp' placeholder="Ex:2x+3 = 0" />
+                <button onclick="calc_ln_eq()">Solve</button>
+                <br>
+                <p id="ln_eq_result"></p>
+            </div>
+
+
+
+        </div>
+
+        <div class="tab_box" id="trigo_tab">
+            <div class="options">
+                <a href='#'></a>
+            </div>
+            <h1>Trigonometry</h1>
+
+            <div class="content" id="trig_value">
+                <h2>cos (&theta;)</h2>
+                <select id="trig_func" onchange="calcTrig()">
+                    <option value="sin">sin</option>
+                    <option value="cos" selected>cos</option>
+                    <option value="tan">tan</option>
+                </select>
+                <input type="number" id='trig_inp' placeholder="Ex:50" oninput="calcTrig()" />
+                <br>
+                <p id="trig_result"></p>
+            </div>
+
+            <div class="content" id="inv_trig_value">
+                <h2>cos<sup>-1</sup> (&theta;)</h2>
+                <select id="inv_trig_func" onchange="calcInvTrig()">
+                    <option value="asin">sin<sup>-1</sup></option>
+                    <option value="acos" selected>cos<sup>-1</sup></option>
+                    <option value="atan">tan<sup>-1</sup></option>
+                </select>
+                <input type="number" id='inv_trig_inp' placeholder="Ex:50" oninput="calcInvTrig()" />
+                <br>
+                <p id="inv_trig_result"></p>
+            </div>
+
+
+        </div>
+        <div class="tab_box"></div>
+    </div>
+
+
+    <script src="math_solver.js"></script>
+</body>
+
+</html>

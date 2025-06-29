@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Calcultor</title>
+    <style>
+        body{
+            background-color: black;
+            color: chartreuse;
+            text-align: center;
+            font-size: 20px;
+        }
+        input{
+            width: 70px;
+            height: auto;
+            font-size: 20px;
+            text-align: center;
+            outline: none;
+        }
+        button{
+            font-size: 20px;
+            width: 150px;
+            height: 50px;
+            outline: none;
+            border: none;
+        }
+        select{
+            width: auto;
+            height:auto;
+            font-size: 20px;
+        }
+        input:read-only{
+            width: auto;
+        }
+        button:hover{
+            background-color: coral;
+        }
+    </style>
+</head>
+<body>
+    <label for="options">Select : </label>
+    <select name="" id="options" onchange="changeDimension()">
+        <optgroup label="Bycomponents">
+        <option value="3d">3D</option>
+        <option value="2d">2D</option>
+        </optgroup>
+        <optgroup label="ByMagnitude">
+            <option value="Parallelogram method">Parallelogram method</option>
+        </optgroup>
+    </select>
+    <br><br>
+<div id="bycomponents">
+    <p>
+        V<sub>1</sub>: (
+    <input type="number" id="v1x">
+    <input type="number" id="v1y">
+    <input type="number" id="v1z">
+        )
+    </p>
+    <p>
+        V<sub>2</sub>: (
+    <input type="number" id="v2x">
+    <input type="number" id="v2y">
+    <input type="number" id="v2z">
+        )
+    </p>
+</div><br>
+<div id="bymagnitude" hidden>
+        <label for="v1m"></label>|V<sub>1</sub>| :
+        <input type="number" id="v1m">
+        <label for="angle1"> x-axis &#x3F4;: </label>
+        <input type="number" id="angle1"><br><br>
+        <label for="v2m"></label>|V<sub>2</sub>| :
+        <input type="number" id="v2m">
+        <label for="angle2"> x-axis &#x3F4;: </label>
+        <input type="number" id="angle2">
+</div><br>
+<div>
+<label for="sum"><b>V<sub>1</sub> + V<sub>2</sub></b></label>
+<input type="text" readonly id="sum"><br><br>
+<label for="subtract"><b>V<sub>1</sub> - V<sub>2</sub></b></label>
+<input type="text" readonly id="subtract"><br><br>
+<label for="product"><b>V<sub>1</sub> &#8226; V<sub>2</sub></b></label>
+<input type="text" readonly id="product"><br><br>
+<label for="product"><b>V<sub>1</sub> x V<sub>2</sub></b></label>
+<input type="text" readonly id="crossProd"><br>
+
+<p><button onclick="calculate()" type="button">Calculate</button></p>
+    <script>
+        function changeDimension(){
+            var dmn = document.getElementById("options").value;
+            if(dmn == "2d"){
+                show2dform();
+            }else if(dmn == "3d"){
+                show3dform();
+            }else if(dmn == "Parallelogram method"){
+                showMagnitudeForm();
+            }
+        }
+        function show2dform(){
+            document.getElementById("bycomponents").hidden = false;
+            document.getElementById("bymagnitude").hidden = true;
+            document.getElementById("v1z").hidden = true;
+            document.getElementById("v2z").hidden = true;
+        }
+        function show3dform(){
+            document.getElementById("bycomponents").hidden = false;
+            document.getElementById("bymagnitude").hidden = true;
+            document.getElementById("v1z").hidden = false;
+            document.getElementById("v2z").hidden = false;
+        }
+        function showMagnitudeForm(){
+            document.getElementById("bymagnitude").hidden = false;
+            document.getElementById("bycomponents").hidden = true;
+        }
+        function calculate(){
+            var v1x,v1y,v1z,v2x,v2y,v2z,v3x,v3y,v3z,v1m,v2m,an1,an2,add,subtract,product,crspdt;
+            v1x = Number(document.getElementById('v1x').value);
+            v1y = Number(document.getElementById('v1y').value);
+            v1z = Number(document.getElementById('v1z').value);
+            v2x = Number(document.getElementById('v2x').value);
+            v2y = Number(document.getElementById('v2y').value);
+            v2z = Number(document.getElementById('v2z').value);
+            v1m = Number(document.getElementById('v1m').value);
+            v2m = Number(document.getElementById('v2m').value);
+            an1 = Number(document.getElementById('angle1').value);
+            an2 = Number(document.getElementById('angle2').value);
+            var option = document.getElementById('options').value;
+            if(option == '3d'){
+                addtion = '('+Number(v1x+v2x)+','+Number(v1y+v2y)+','+Number(v1z+v2z)+')';
+                subtract = '('+Number(v1x-v2x)+','+Number(v1y-v2y)+','+Number(v1z-v2z)+')';
+                product = v1x*v2x+v1y*v2y+v1z*v2z;
+                crspdt = '('+Number(v1y*v2z-v1z*v2y)+','+Number(v1z*v2x-v1x*v2z)+','+Number(v1x*v2y-v1y*v2x)+')';
+            
+            }else if(option == '2d'){
+                addtion = '('+Number(v1x+v2x)+','+Number(v1y+v2y)+')';
+                subtract = '('+Number(v1x-v2x)+','+Number(v1y-v2y)+')';
+                product = v1x*v2x+v1y*v2y;
+                crspdt = Number(v1x*v2y-v1y*v2x);
+            }else if(option == 'Parallelogram method'){
+                var angIndeg = Math.cos(Math.PI/180*(an1-an2)).toFixed(15);
+                addtion = Math.sqrt(v1m*v1m+v2m*v2m+2*v1m*v2m*angIndeg);
+                subtract = Math.sqrt(v1m*v1m+v2m*v2m-2*v1m*v2m*angIndeg);
+                product = v1m*v2m*angIndeg;
+                crspdt = v1m*v2m*Math.sin(Math.PI/180*(an1-an2)).toFixed(15);
+            }
+            document.getElementById("product").value = product;
+            document.getElementById("sum").value = addtion;
+            document.getElementById('subtract').value = subtract;
+            document.getElementById("crossProd").value = crspdt;
+        }
+    </script>
+</body>
+</html>

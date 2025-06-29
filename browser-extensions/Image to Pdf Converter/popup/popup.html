@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Complete file example</title>
+  <style>
+    body {
+      background-color: #673ab7;
+      width: 400px;
+      height: 600px;
+      margin: 0px;
+      display: flex;
+      top: 0px;
+      left: 0px;
+      flex-direction: column;
+      align-content: center;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+
+    html {
+      font-family: sans-serif;
+    }
+
+    #image_uploads {
+      display: none;
+    }
+
+    .upload_btn {
+      width: 250px;
+      height: 40px;
+      margin: auto;
+      background-color: #ff9800;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    .upload_btn label {
+      color: white;
+      font-size: 18px;
+      padding: 20px;
+      cursor: pointer;
+    }
+
+    .upload_btn:hover {
+      box-shadow: 1px 1px 9px 3px #222120;
+    }
+
+    .preview {
+      width: 350px;
+      height: 400px;
+      margin: auto;
+      background-color: white;
+      text-align: center;
+      margin-top: 10px;
+      overflow-y: scroll;
+    }
+
+    .preview table {
+      height: auto;
+      width: 100%;
+    }
+
+    .preview img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .preview td {
+      font-family: calibri;
+      font-size: 15px;
+    }
+
+    .preview tr:hover,
+    tr:active,
+    tr:focus {
+      background-color: #ffc107;
+      /* box-shadow: 1px 1px 2px 2px #ffeb3b; */
+    }
+
+    .preview table,
+    td {
+      border: 1px dotted black;
+      border-collapse: collapse;
+    }
+
+    .download_btn {
+      padding: 14px 12px;
+      border: none;
+      cursor: pointer;
+      background-color: #e91e63;
+      color: white;
+      font-size: 16px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    .download_btn:hover {
+      box-shadow: 1px 1px 4px 2px #222120;
+    }
+
+    .progress_box {
+      box-sizing: border-box;
+      background-color: #f1f1f1 !important;
+      width: 350px;
+    }
+
+    .progress_bar {
+      background-color: #4CAF50 !important;
+      height: 24px;
+      width: 0%;
+      padding: 0.01em 16px;
+    }
+
+    #file_name {
+      background-color: #f1f1f1;
+      padding: 14px 12px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      width: 100px;
+    }
+    #save_div label{
+      color: white;
+      font-size: 15px;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+  </style>
+  <script src="jspdf.min.js"></script>
+</head>
+
+<body>
+  <div class="uploads">
+    <div class="upload_btn">
+      <label for="image_uploads">Choose images to upload</label>
+      <input type="file" id="image_uploads" name="image_uploads" accept="image/png,image/jpeg" multiple />
+    </div>
+    <div class="preview">
+      <p>No files currently selected for upload</p>
+    </div>
+  </div>
+  <div class="progress_box">
+    <div class="progress_bar" id="pg_bar"></div>
+  </div>
+  <p style="font-family: Verdana,sans-serif;font-size: 15px;line-height: 1.5;color: white;">Converted <span
+      id="img_no">0</span> of <span id="total_image">0</span></p>
+
+  <div id="cnv_div" style="display: none;">
+    <button class="download_btn" id="cnvbtn">Convert</button>
+  </div>
+  <div id="save_div" style="display: none;">
+    <label for="file_name">File Name : </label>
+    <input type="text" id="file_name" maxlength="25">
+    <button class="download_btn" id="dwnbtn">Save</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+
+</html>

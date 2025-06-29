@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body{
+            padding: 0px;
+            margin: 0px;
+        }
+        table {
+            padding: 5px;
+            margin: auto;
+            box-shadow: 0px 0px 6px 0px grey;
+        }
+
+        button {
+            border: none;
+            outline: none;
+            box-shadow: 0px 0px 6px 0px grey;
+            background-color: white;
+            width: 80px;
+            height: 70px;
+            font-size: 25px;
+            border-radius: 40px;
+        }
+
+        button:hover {
+            background-color: #009688;
+            color: white;
+        }
+
+        input#opbx {
+            outline: none;
+            box-shadow: 0px 0px 7px 0px grey;
+            padding: 16px 0px;
+            border: none;
+            font-size: 30px;
+            text-align: right;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td colspan="4"><input type="text" id="opbx" readonly value="0"></td>
+        </tr>
+        <tr>
+            <td><button id="cls">CE</button></td>
+            <td><button id="cut">x</button></td>
+            <td><button id="sqrt">√</button></td>
+            <td><button id="div">÷</button></td>
+        </tr>
+        <tr>
+            <td><button id="sv">7</button></td>
+            <td><button id="et">8</button></td>
+            <td><button id="nn">9</button></td>
+            <td><button id="mp">X</button></td>
+        </tr>
+        <tr>
+            <td><button id="fr">4</button></td>
+            <td><button id="fv">5</button></td>
+            <td><button id="sx">6</button></td>
+            <td><button id="mn">-</button></td>
+        </tr>
+        <tr>
+            <td><button id="one">1</button></td>
+            <td><button id="two">2</button></td>
+            <td><button id="thr">3</button></td>
+            <td><button id="pl">+</button></td>
+        </tr>
+        <tr>
+            <td><button id="dbzr">00</button></td>
+            <td><button id="zr">0</button></td>
+            <td><button id="dt">.</button></td>
+            <td><button id="solve">=</button></td>
+        </tr>
+
+    </table>
+    <script src="popup.js"></script>
+        
+</body>
+
+</html>

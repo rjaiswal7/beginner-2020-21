@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+        #name{
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4);
+            text-align: center; 
+
+        }
+        .contents{
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            background-color: rgba(211, 251, 31, 0.917);
+            box-shadow: 20px 20px 40px 40px rgb(0, 255, 0);
+            font-size: xx-large;
+        }
+        body{
+            background-color: white;
+        }
+       .head{
+            background-color: white;
+            left: 5%;
+            height: 10%;
+            width: 90%;
+            background-color:rgba(251, 90, 31, 0.753);
+            color: rgba(140, 0, 255, 0.623);
+            box-shadow:20px 20px 50px grey;
+            text-align:center;
+            position: fixed;
+       }
+       .head:hover{
+           transform: scale(1.5);
+       }
+       .playboard{
+            top: 40%;
+            left: 5%;
+            width: 90%;
+            height: 60%;
+            text-align: center;
+            box-shadow:20px 20px 50px 50px grey;
+            position: fixed;
+        }
+        .scoreboard{
+            top: 15%;
+            left: 6%;
+            width: 90%;
+            height: 20%;
+            background-color: rgb(255, 235, 205);
+            box-shadow:20px 20px 50px rgb(29, 28, 28);
+            position: fixed;
+        }
+        input[type="button"]{
+            width: 32%;
+            height: 33%;
+            background-color: rgba(237, 240, 234, 0.883);
+            font-size: 700%;
+            color: black;
+            margin: auto;
+            box-shadow: 2px 2px 2px 2px grey;
+        }
+        .score{
+            width: 10%;
+            height: 20%;
+            background-color: wheat;
+            font-size: large;
+            text-align: center;
+        }
+        button{
+            width:auto;
+            height: 40px;
+        }
+        input[type="button"]:hover{
+            transform: scale(.85);
+        }
+        button:hover{
+            background-color: brown;
+        }
+        label{
+            font-size: x-large;
+        }
+
+    </style>
+<body>
+        <div class="head">
+            <h1>Tic Tac Toe</h1>
+        </div>
+        <div class="playboard" id="user">
+                <input type="button" id="a1" value=" " onclick="play('a1')">
+                <input type="button" id="a2" value=" " onclick="play('a2')">
+                <input type="button" id="a3" value=" " onclick="play('a3')">
+
+                <input type="button" id="b1" value=" " onclick="play('b1')">
+                <input type="button" id="b2" value=" " onclick="play('b2')">
+                <input type="button" id="b3" value=" " onclick="play('b3')">
+
+                <input type="button" id="c1" value=" " onclick="play('c1')">
+                <input type="button" id="c2" value=" " onclick="play('c2')">
+                <input type="button" id="c3" value=" " onclick="play('c3')">
+
+        </div>
+
+        <div class="scoreboard">
+            <br>
+            <label for="pl1" id="lb1">Player1 :</label>
+            <input type="text" id="pl1" class="score" value="" disabled><br><br>
+            <label for="pl2" id="lb2">Player2 :</label>
+            <input type="text" id="pl2" class="score" value="" disabled>
+            <button id="re" onclick="reset()">Reset</button>
+            <button id="nm" onclick="newmatch()">New Match</button>
+        </div>
+        <div id="name">
+        <div class="contents">
+            <h1>Tic Tac Toe</h1>
+            <h3>Write the Players Names!</h3><br>
+            <label for="player1">Player1</label>
+            <input type="text" id="player1" placeholder="Name..." style="width: 30%;height: 40px;"><br><br><br>
+            <label for="player2">Player2</label>
+            <input type="text" id="player2" placeholder="Name..." style="width: 30%;height: 40px;"><br><br>
+            <button id="nameSubmit" onclick="remove()">Submit</button>
+        </div>
+        </div>
+    <script>
+        var turn = 0;
+        var scoring = true;
+        function play(vl){
+            var i = turn%2;
+            if(i===0){
+                document.getElementById(vl).value = "X";
+                turn++;
+            }if(i===1){
+                document.getElementById(vl).value = "O";
+                turn--;
+            }
+            document.getElementById(vl).disabled = true;
+            var v1,v2,v3,v4,v5,v6,v7,v8,v9;
+            v1 = document.getElementById("a1").value;
+            v2 = document.getElementById("a2").value;
+            v3 = document.getElementById("a3").value;
+            v4 = document.getElementById("b1").value;
+            v5 = document.getElementById("b2").value;
+            v6 = document.getElementById("b3").value;
+            v7 = document.getElementById("c1").value;
+            v8 = document.getElementById("c2").value;
+            v9 = document.getElementById("c3").value;
+            pt1 = document.getElementById("pl1");
+            pt2 = document.getElementById("pl2");
+
+            if((v1===v2 && v2===v3 && v3==='X') || (v4===v5 && v5===v6 && v6==='X') || (v7===v8 && v8===v9 && v9==='X') || (v1===v4 && v4===v7 && v7==='X') || (v2===v5 && v5===v8 && v8==='X') || (v3===v6 && v6===v9 && v9==='X') || (v1===v5 && v5===v9 && v9==='X') || (v3===v5 && v5===v7 && v7==='X')){
+                if(scoring==true){
+                    pt1.value = eval(pt1.value+'+1');
+                }
+                scoring = false;
+            }
+            if((v1===v2 && v2===v3 && v3==='O') || (v4===v5 && v5===v6 && v6==='O') || (v7===v8 && v8===v9 && v9==='O') || (v1===v4 && v4===v7 && v7==='O') || (v2===v5 && v5===v8 && v8==='O') || (v3===v6 && v6===v9 && v9==='O') || (v1===v5 && v5===v9 && v9==='O') || (v3===v5 && v5===v7 && v7==='O')){
+                if(scoring == true){
+                    pt2.value=eval(pt2.value+'+1');
+                }
+                scoring = false;
+            }
+        }
+        function reset(){
+            turn = 0;
+            scoring = true;
+            document.getElementById("a1").value = ' ';
+            document.getElementById("a2").value = ' ';
+            document.getElementById("a3").value = ' ';
+            document.getElementById("b1").value = ' ';
+            document.getElementById("b2").value = ' ';
+            document.getElementById("b3").value = ' ';
+            document.getElementById("c1").value = ' ';
+            document.getElementById("c2").value = ' ';
+            document.getElementById("c3").value = ' ';
+
+            document.getElementById("a1").disabled=false;
+            document.getElementById("a2").disabled=false;
+            document.getElementById("a3").disabled=false;
+            document.getElementById("b1").disabled=false;
+            document.getElementById("b2").disabled=false;
+            document.getElementById("b3").disabled=false;
+            document.getElementById("c1").disabled=false;
+            document.getElementById("c2").disabled=false;
+            document.getElementById("c3").disabled=false;
+
+        }
+        function newmatch(){
+            reset();
+            document.getElementById("pl1").value = "";
+            document.getElementById("pl2").value = "";
+            document.getElementById("name").hidden = false;
+        }
+        function remove(){
+            var x = document.getElementById("player1").value;
+            var y = document.getElementById("player2").value;
+     
+            if(x=='' && y==''){
+                document.getElementById("lb1").innerText = "Player1 : ";
+                document.getElementById("lb2").innerText = "Player2 : ";
+                
+            }else if(x==''){
+                document.getElementById("lb1").innerText = "Player1 : ";
+                document.getElementById("lb2").innerText = y +" : ";
+            }else if(y==''){
+                document.getElementById("lb2").innerText = "Player2 : ";
+                document.getElementById("lb1").innerText = x +" : ";
+            }else{
+                document.getElementById("lb1").innerText = x +" : ";
+                document.getElementById("lb2").innerText = y +" : ";
+            }
+            document.getElementById("name").hidden = true;
+            
+        }
+    </script>
+</body>
+</html>

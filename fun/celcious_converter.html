@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .upPart{
+                background-color: #1c9e27;
+                top: 0;
+                left: 0;
+                height: 20%;
+                width: 100%;
+                position: fixed;
+                text-align: center;
+                font-size: 200%;
+            }
+            .clPart{
+                background-color: rgba(128, 128, 128, 0.616);
+                top: 25%;
+                left: 0;
+                height: 75%;
+                width: 50%;
+                position: fixed;
+                text-align: center;
+            }
+            .frnhPart{
+                background-color: aqua;
+                top: 25%;
+                left: 50%;
+                height: 75%;
+                width: 50%;
+                position: fixed; 
+                text-align: center;               
+            }
+            .choose{
+                top: 20%;
+                left: 5%;
+                width: 100%;
+                height: 10%;
+                position: fixed;
+            }
+            .Cscale{
+                top: 30%;
+                left: 15%;
+                position: fixed;
+                text-align: center;
+                background-color: rgba(240, 88, 0, 0.89);
+                font-size: 175%;
+                height: 510px;
+            }
+            .Fscale{
+                top: 30%;
+                left: 65%;
+                position: fixed;
+                text-align: center;
+                background-color: rgba(240, 88, 0, 0.89);
+                font-size: 175%;
+                height: 510px;                
+            }
+            #Ctube{
+                top: 30%;
+                left: 25%;
+                position: fixed;
+                background-color: red;
+                width: 70px;
+                height: 505px;
+                border-radius: 100px;
+            }
+            #Ftube{
+                top: 30%;
+                left: 75%;
+                position: fixed;
+                background-color: red;
+                width: 70px;
+                height: 505px;
+                border-radius: 100px;                
+            }
+            .Cfill{
+                position: fixed;
+                background-color:white;
+                height:370px;
+                width: 70px;
+                border-radius: 50px 50px 0px 0px;
+            }
+            .Ffill{
+                position: fixed;
+                background-color:white;
+                height:370px;
+                width: 70px;
+                border-radius: 50px 50px 0px 0px;                
+            }
+            button{
+                background-color: #670eb9;
+                padding: 5%;
+                font-size: x-large;
+            }
+            input[type = "range"]{
+                width: 40%;              
+            }
+            input[type = "text"]{
+                font-size: x-large; 
+                width: 10%;              
+            }
+        </style>
+    </head>
+<body>
+    <div class="upPart">
+         <h1>Celcious-Fahrenheit Scale</h1>
+    </div>
+    <div class="choose">
+        <select name="clfrh" id="clfrh" onchange="View()">
+            <option value="">---select---</option>
+            <option value="clTofh">Celcious</option>
+            <option value="fhTocl">Fahrenheit</option>
+        </select>
+        <input type="range" id="vl" value="0" oninput="vl()" min="-40">
+        <input type="text" id="op" disabled>
+        <label for="op" id="clb"><sup>o</sup>C</label>
+        <input type="text" id="op1" disabled>
+        <label for="op1" id="flb"><sup>o</sup>F</label>
+    </div>
+    <div class="clPart">
+        
+        <div class="Cscale">
+            <table id="cnm">
+            </table>
+        </div>
+
+        <div id="Ctube" hidden>
+           <div id="Cfl" class="Cfill" >
+           </div>
+        </div>
+        
+    </div>
+    <div class="frnhPart">
+        
+        <div class="Fscale">
+            <table id="fnm">
+            </table>
+        </div>
+
+        <div id="Ftube" hidden>
+           <div id="Ffl" class="Ffill">
+           </div>
+        </div>        
+    </div>
+    <script>
+        function View(){       
+            //Adding Celcious scale
+            let i1 = 110;
+            for(let i1 = 100;i1 >= -40;i1-=10){
+                var ctr = document.createElement("tr");
+                var scale1 = document.createTextNode(i1+"__");
+                ctr.appendChild(scale1);
+                document.getElementById("cnm").appendChild(ctr);
+            }
+
+            //Adding Fahrenheit Scale
+            let i2 = 212;
+            for(let i2 = 212;i2 >= -40;i2-=18){
+                var ftr = document.createElement("tr");
+                var scale2 = document.createTextNode(i2+"__");
+                ftr.appendChild(scale2);
+                document.getElementById("fnm").appendChild(ftr);
+            }
+            document.getElementById("Ctube").hidden = false;
+            document.getElementById("Ftube").hidden = false;
+            document.getElementById("clfrh").hidden = true;    
+        }
+
+
+        function vl(){
+            //setting input values
+            var v = document.getElementById("vl").value;
+            var fill = 510/150;
+            var mx = 370;
+            
+            if(document.getElementById("clfrh").value == "clTofh"){
+                document.getElementById("vl").max = "100";
+                sv = v;
+                var fv = Number(v*9/5)+32;
+                document.getElementById("op").value = v;
+                document.getElementById("op1").value = fv;
+            }else if(document.getElementById("clfrh").value == "fhTocl"){
+                document.getElementById("vl").max = "212";
+                sv = (v-32)*5/9;
+                document.getElementById("op1").value = v;
+                document.getElementById("op").value = sv;
+            }else{
+
+            }   
+            var st = mx-sv*fill;
+            
+            var sh = st.toString();
+
+            document.getElementById("Cfl").style.height = `${sh}px`;
+            document.getElementById("Ffl").style.height = `${sh}px`;
+            
+        }   
+    </script>
+</body>
+</html>

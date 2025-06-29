@@ -1,0 +1,15 @@
+{
+  "name": "Quadratic Equation Solver",
+  "version": "0.0.0.3",
+  "manifest_version": 2,
+  "description": "A chromium extension to solve Quadratic Equations",
+  "author":"Ritesh Jaiswal",
+  "icons": {
+    "64": "icons/icon1.png",
+    "128": "icons/icon2.png",
+    "336": "icons/icon3.png"
+  },
+  "browser_action": {
+    "default_popup": "popup/popup.html"
+  } 
+}

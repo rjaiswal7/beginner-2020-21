@@ -1,0 +1,490 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Javascript</title>
+    <style>
+        #hb {
+            top: 30%;
+            left: 30%;
+            position: fixed;
+            background-color: white;
+            box-shadow: 3px 3px 8px 0px dodgerblue;
+            display: none;
+            z-index: 1;
+            cursor: all-scroll;
+            padding-right: 10px;
+        }
+
+        #hb li:hover {
+            background-color: #3f51b5;
+            cursor: pointer;
+        }
+
+        .top_box {
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 40px;
+            position: fixed;
+            background-color: crimson;
+            box-sizing: content-box;
+        }
+
+        .top_box .hd {
+            top: 0px;
+            position: absolute;
+            right: 0px;
+            left: 0px;
+            text-align: center;
+            z-index: -1;
+        }
+
+        .code_box {
+            left: 0px;
+            top: 40px;
+            min-width: 48%;
+            max-width: 90%;
+            bottom: 1%;
+            position: fixed;
+            box-shadow: 2px 2px 11px grey;
+            padding: 10px;
+            border: none;
+            outline: none;
+            resize: horizontal;
+            font-family: monospace;
+            font-size: 17px;
+            z-index: 1;
+            overflow: auto;
+        }
+
+        .op_box {
+            left: 51%;
+            top: 40px;
+            right: 0%;
+            bottom: 10px;
+            position: fixed;
+            box-shadow: -6px 3px 10px grey;
+            padding: 1%;
+            border: none;
+            outline: none;
+            font-family: monospace;
+            font-size: 17px;
+            background-color: darkslategrey;
+            color: white;
+            overflow: auto;
+        }
+
+        canvas {
+            background-color: white;
+        }
+
+        button,
+        label {
+            padding: 14px 14px;
+            border: none;
+            outline: none;
+            background-color: #141a3c;
+            color: white;
+        }
+
+        button:hover,
+        label:hover {
+            background-color: #00bcd4;
+        }
+
+        label {
+            cursor: pointer;
+        }
+
+        #sample-box {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background-color: #cddc3959;
+            z-index: 1;
+            cursor: pointer;
+            overflow-y: auto;
+        }
+
+        .code-name h2 {
+            background-color: #009688;
+            color: white;
+            margin: 0px;
+        }
+
+        .code-name {
+            margin-bottom: 2px;
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+
+        .code {
+            background: lightslategrey;
+            color: white;
+            font-size: 16px;
+            font-family: monospace;
+            padding: 20px;
+            display: none;
+        }
+
+        @media screen and (max-width:600px) {
+            .top_box {
+                left: 0px;
+                top: 0px;
+                width: 100%;
+                height: 80px;
+                position: fixed;
+                background-color: crimson;
+                box-sizing: content-box;
+            }
+
+            .code_box {
+                top: 80px;
+                position: relative;
+                width: 98%;
+                max-width: 100%;
+                height: 300px;
+                box-shadow: 2px 2px 11px grey;
+                padding: 5px;
+                border: none;
+                outline: none;
+                resize: vertical;
+                font-family: monospace;
+                font-size: 17px;
+                z-index: 1;
+                overflow: auto;
+            }
+
+            .op_box {
+                top: 80px;
+                left: 1%;
+                position: relative;
+                right: 1%;
+                box-shadow: -6px 3px 10px grey;
+                padding: 20px;
+                border: none;
+                outline: none;
+                font-family: monospace;
+                font-size: 17px;
+                background-color: darkslategrey;
+                color: white;
+                overflow: auto;
+                resize: none;
+                z-index: 1;
+            }
+
+            .top_box .hd {
+                top: 40px;
+                position: absolute;
+                right: 0px;
+                left: 0px;
+                text-align: center;
+                z-index: -1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="top_box">
+            <label for="file_inp">Open File</label>
+            <input type="file" id="file_inp" accept="text/*" onchange="displayFile(event)" style="display: none;">
+            <button id="run_btn" onclick="runcode()">Run</button>
+            <button onclick="showSample()">Sample Code</button>
+            <div class="hd">
+                <h1 style="margin: 0px;color: white;">Learn Js</h1>
+            </div>
+
+        </div>
+        <div class="hint_box" id="hb">
+            <ul id="hl"></ul>
+        </div>
+    </div>
+
+    <textarea id="inp" class="code_box" spellcheck="false" placeholder="Enter the code here....."></textarea>
+
+    <!--output div 👇-->
+    <div class="op_box">
+        <div id="op">
+        </div>
+    </div>
+
+
+    <div style="display: none;" id="sample-box">
+        <div class="code-name">
+            <h2 onclick="showCode(this)">1. sum of 2 numbers</h2>
+            <div class="code">
+                //this is a comment <br>
+                let x = 20;<br>
+                let y = 30;<br>
+                sum = x+y;<br>
+                print("sum = "+sum);
+            </div>
+        </div>
+        <div class="code-name">
+            <h2 onclick="showCode(this)">2. sum of 2 numbers with Input</h2>
+            <div class="code">
+                let x = Number(input("Enter the first no: "));<br>
+                let y = Number(input("Enter the second no: "));<br>
+                sum = x+y;<br>
+                print("sum = "+sum);
+            </div>
+        </div>
+        <div class="code-name">
+            <h2 onclick="showCode(this)">3. greater of two number</h2>
+            <div class="code">
+                let x = Number(input("Enter the first no: "));<br>
+                let y = Number(input("Enter the second no: "));<br>
+                let greater = 0; <br>
+                if(x > y){ <br>
+                greater = x; <br>
+                }else{ <br>
+                greater = y; <br>
+                } <br>
+                print("greater no. is "+greater);
+            </div>
+        </div>
+        <div class="code-name">
+            <h2 onclick="showCode(this)">4. sum of first N-numbers (using for-loop)</h2>
+            <div class="code">
+                let n = Number(input("Enter the n: "));<br>
+                let sum = 0;<br>
+                for(let i=1;i<=n;i++){<br>
+                    sum+=i;<br>
+                    } <br>
+                    print("sum = "+sum);
+            </div>
+        </div>
+        <div class="code-name">
+            <h2 onclick="showCode(this)">5. factorial of n</h2>
+            <div class="code">
+                let n = Number(input("Enter the n: "));<br>
+                let fact = 1;<br>
+                for(let i=1;i<=n;i++){<br>
+                    fact= fact*i;<br>
+                    } <br>
+                    if(n==0){<br>
+                    fact = "not defined";<br>
+                    } <br>
+                    print("factorial of "+n+" is "+fact);
+            </div>
+        </div>
+        <div class="code-name">
+            <h2 onclick="showCode(this)">6. Using Math</h2>
+            <div class="code">
+                //printing value of pi <br>
+                print(Math.PI); <br>
+                // getting max-no with Math <br>
+                print(Math.max(12,13,14)); <br>
+                let x = Math.LN10;//log 10 <br>
+                print(x); <br>
+                //finding square-root <br>
+                let y = Math.sqrt(81); <br>
+                print(y);
+
+            </div>
+        </div>
+        <div class="code-name">
+            <h2 onclick="showCode(this)">7.drawing rectangle on Canvas</h2>
+            <div class="code">
+                let canvas = myCanvas(400,500); //width=400,height=600<br>
+                let pen = canvas.pen;<br>
+                pen.strokeRect(20,30,200,100);<br>
+                canvas.show();
+            </div>
+        </div>
+        <div class="code-name">
+            <h2 onclick="showCode(this)">8.creating function</h2>
+            <div class="code">
+                function product(a,b){ <br>
+                print(a*b); <br>
+                } <br>
+                product(20,30); <br><br>
+                //using return <br>
+                function product2(a,b){ <br>
+                return a*b; <br>
+                } <br>
+                let x = product2(20,30); <br>
+                print(x);
+            </div>
+        </div>
+        <div class="code-name" style="text-align: center;">
+            <button onclick="AddCode()">Add</button>
+            <button onclick="cancelAdd()">Cancel</button>
+        </div>
+    </div>
+
+
+    <script>
+        const output_element = document.getElementById("op");
+        let hb_mov = false;//for moving hint_box
+        let kw = ["let", "const", "Math", "print()", "input()", "myCanvas(w,h)",
+            "Math.sin()", "Math.cos", "for(){\n}", "while(){\n}", "output_element",
+            "document", "window"];
+
+        let canvas = {
+            "pen": "",
+            "show": function () {
+                let data = this.pen.canvas.toDataURL();
+                let img = document.createElement("img");
+                img.style.backgroundColor = "white";
+                img.style.boxShadow = "black 0px 0px 20px 0px";
+                img.style.padding = "10px";
+                img.src = data;
+                document.getElementById("op").append(img);
+                document.getElementById("op").removeChild(this.pen.canvas)
+            }
+        }
+
+        //for showing text in hint_box
+        function showtext(id) {
+            let inp = document.getElementById(id).value;
+            let op = "";
+            inp = inp.replaceAll("\n", " ");
+            let wd = getLastWord(inp);
+
+            if (wd !== "") {
+                for (let i = 0; i < kw.length; i++) {
+                    if (kw[i].includes(wd)) {
+                        op += `<li onclick="insertCode(this)">${kw[i]}</li>`;
+                    }
+                }
+            }
+            document.getElementById("hl").innerHTML = op;
+            let hb = document.getElementById("hb");
+            if (op != "") {
+                hb.style.display = "block";
+            } else {
+                hb.style.display = "none";
+            }
+        }
+
+        //for start moving hint_box
+        function getPos() {
+            hb_mov = true;
+        }
+
+        //for moving hint_box
+        function moveBox(event, id) {
+            let el = document.getElementById(id);
+            if (hb_mov === true) {
+                let x = event.clientX;
+                let y = event.clientY;
+                el.style.left = `${x - el.clientWidth / 2}px`;
+                el.style.top = `${y - el.clientHeight / 2}px`;
+            }
+        }
+
+        //for stop moving hint_box
+        function revPos() {
+            hb_mov = false;
+        }
+
+
+        //for inserting hint from hint_box
+        function insertCode(cd) {
+            let code = document.getElementById("inp");
+            let txt = code.value;
+            let lw = getLastWord(txt);
+            let ed_code = txt.substr(0, txt.length - lw.length - 1) + " " + cd.innerText;
+            code.value = ed_code;
+        }
+
+
+        //for getting last word in textarea
+        function getLastWord(txt) {
+            txt = txt.replaceAll("\n", " ")
+            let wds = txt.split(" ");
+            let wd = wds[wds.length - 1];
+            return wd;
+        }
+
+        function runcode() {
+            code = document.getElementById("inp").value;
+            document.getElementById("op").innerHTML = "";
+            //code = code.replaceAll("\n", "");
+            try {
+                eval(code);
+            } catch (e) {
+                print(e.toString().split("\n")[0]);
+            }
+
+        }
+
+        function print(...args) {
+            document.getElementById("op").innerHTML += `<p>${args}</p>`;
+        }
+        function input(...args) {
+            let vl = prompt(args);
+            print(args + vl);
+            return vl;
+        }
+        function run(event) {
+            if (event.ctrlKey === true && event.keyCode == 13) {
+                runcode();
+            }
+        }
+
+        function myCanvas(...args) {
+            if (args[0] == "") {
+                args[0] = "400px";
+            } else if (args[1] == "") {
+                args[1] = "400px";
+            }
+            let cnv = document.createElement("canvas");
+            cnv.setAttribute("width", args[0]);
+            cnv.setAttribute("height", args[1]);
+            cnv.style.display = "none";
+            document.getElementById("op").append(cnv);
+            let ctx = cnv.getContext("2d");
+            canvas.pen = ctx;
+            return canvas;
+        }
+
+        function displayFile(event) {
+            let file = event.target.files[0];
+            let fr = new FileReader();
+            fr.onloadend = (x) => {
+                let data = x.target.result;
+                document.getElementById("inp").value = data;
+            }
+            fr.readAsText(file);
+        }
+
+        function showSample() {
+            document.getElementById("sample-box").style.display = "block";
+        }
+        let act_code = ""
+        function showCode(x) {
+            let code = document.getElementsByClassName("code");
+            for (let i = 0; i < code.length; i++) {
+                code[i].style.display = "none";
+            }
+            x.nextElementSibling.style.display = "block";
+            act_code = x.nextElementSibling.innerText;
+        }
+        function AddCode() {
+            document.getElementById("inp").value = act_code;
+            document.getElementById("sample-box").style.display = "none";
+        }
+        function cancelAdd() {
+            document.getElementById("sample-box").style.display = "none";
+        }
+        //adding events to inputs;
+        document.getElementById("inp").addEventListener("input", function () { showtext("inp") });
+        document.getElementById("inp").addEventListener("keydown", function (event) { run(event); });
+        document.getElementById("hb").addEventListener("mousedown", function () { getPos() });
+        document.getElementById("hb").addEventListener("mousemove", function (event) { moveBox(event, "hb") });
+        document.getElementById("hb").addEventListener("mouseup", function () { revPos() });
+
+    </script>
+</body>
+
+</html>

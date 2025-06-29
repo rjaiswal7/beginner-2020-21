@@ -1,0 +1,15 @@
+{
+    "name": "Png,Jpg to Pdf Converter",
+    "version":"0.0.0.3",
+    "manifest_version":2,
+    "description": "A Edge extension to convert PNG,JPEG into Pdf ",
+    "author": "R Jaiswal",
+    "icons": {
+        "128":"icons/icon1.png",
+        "256": "icons/icon2.png",
+        "512": "icons/icon3.png"
+    },
+    "browser_action":{
+        "default_popup": "popup/popup.html"
+    }
+}

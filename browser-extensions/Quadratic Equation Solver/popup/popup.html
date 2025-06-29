@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Equation Solver</title>
+        <style>
+            body{
+                width: 500px;
+                height: 500px;
+                background-color: black;
+                color: greenyellow;
+                text-align: center;
+                padding: 1%;
+            }
+            input{   
+                font-size: 28px;
+                width: 100px;
+                text-align: center;
+                outline: none;
+                border: none;
+            }
+            button{
+                padding: 1%;
+                background-color:#008CBA;
+                width: 100px;
+                height: 50px;
+                font-size: 20px;
+                border-radius: 0px;
+                color:white;
+                outline: none;
+                border: none;
+            }
+            button:hover{
+                background-color: tomato;
+            }
+            #close{
+                top: 0%;
+                left: 94%;
+                width: 6%;
+                height: 6%;
+                position: fixed;
+                font-size: 20px;
+                background-color: tomato;
+            }
+            #close:hover{
+                background-color: red;
+                color: white;
+            }
+        </style>
+        <h1>Quadratic Equation Solver</h1>
+    </head>
+    <body>
+        <button id="close">X</button>
+        <form>
+        <input type="number" id="x1">
+        <label for="x1">X<sup>2</sup></label>
+        <input type="number" id="x2">
+        <label for="x2">X</label>
+        <input type="number" id="n"><br><br><br>
+        <label for="r1">1<sup>st</sup>root :</label>
+        <input type="text" id="root1"readonly>
+        <label for="r2">2<sup>nd</sup>root :</label>
+        <input type="text" id="root2"readonly><br><br>
+        <label for="fctrs">Factorisation :</label>
+        <input type="text" id="fctrs" readonly style="width: 50%;"><br><br>
+        <button type="reset" value="reset">Reset</button>
+        <button type="button" id="btn">Factorise</button>
+        <h4 style="text-align: left;padding: 20% 0 0 0;">Note : Values will be up to 2 decimal.</h4>
+        </form>
+        <script src="popup.js"></script>
+    </body>
+</html>

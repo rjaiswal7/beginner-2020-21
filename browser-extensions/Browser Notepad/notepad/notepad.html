@@ -1,0 +1,156 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title>Browser Notepad</title>
+       <style>
+            body{
+                background-color:rgb(179, 179, 179);
+                color: black;
+            }
+            .up{
+                top: 0%;
+                left: 0%;
+                width: auto;
+                height: 10%;
+                padding-left: 20px;
+                position: fixed;
+                user-select: none;
+            }
+            .txtbdy{
+                left: 10px;
+                top: 10%;
+                width: 70%;
+                height: 89%;
+                overflow-y: scroll;
+                background-color: white;
+                box-shadow: 10px 4px 10px 4px rgb(52, 52, 52);
+                padding: 5px;
+                box-sizing:border-box;
+                border-radius: 5px;
+                position: fixed;
+                z-index: 1;
+            }
+            .choose{
+                top: 10%;
+                left: 75%;
+                width: 20%;
+                height: 89%;
+                font-size: 20px;
+                position:absolute;
+                text-align: center;
+                background-color:coral;
+                box-shadow: 10px 4px 10px 4px rgb(52, 52, 52);
+                border-radius: 10px;
+                overflow-y: scroll;
+                position: fixed;
+                z-index: 1;
+                user-select: none;
+            }
+            .txtbdy div{
+                width: 100%;
+                outline: none;
+                font-size: 20px;
+            }
+            select{
+                width: 60%;
+                height: 30px;
+                background-color:rgba(255, 0, 0, 0.561);
+                outline: none;
+                border: none;
+                border-radius: 10px;
+            }
+            #fsr{
+                width: 95%;
+            }
+            input[type="button"]{
+                width: 60%;
+                height: 50px;
+                outline: none;
+                border: none;
+                background-color:rgb(3, 196, 154);
+                font-style: oblique;
+                font-size: 17px;
+            }
+            input[type="button"]:hover{
+                background-color: crimson;
+            }
+            @media print {
+                body * {
+                    visibility: hidden;
+                }
+                #text, #text * {
+                    visibility: visible;
+                }
+                #text{
+                    left: 1%;
+                    top: 1%;
+                    box-shadow: none;
+                    width: 98%;
+                    height: 98%;
+                    position: fixed;
+                }
+            }
+            ::-webkit-scrollbar{
+                width: 10px;
+            }
+            ::-webkit-scrollbar-thumb{
+                background: teal;
+            }
+            ::selection{
+                background-color:rgb(255, 71, 71);
+            }
+       </style>
+    </head> 
+<body>
+    <div class="up">
+        <h1>Notepad</h1>
+    </div>
+    <div class="txtbdy" id="txtbdy">
+        <div id="text" spellcheck="false" contenteditable="true"></div>
+    </div>    
+    <div class="choose">
+        <br>
+        <input id="inmd" type="button" value="Dark Mode"><br>
+        <br>
+        <label for="fsr">Font-size:</label>
+        <input type="range" id="fsr" min="20" max="60" value="20"><br><br>
+        <label for="font_family">Font: </label>
+        <select id="font_family">
+            <option value="initial">select</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Palatino Linotype">Palatino Linotype</option>
+            <option value="Book Antiqua">Book Antiqua</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Arial">Arial</option>
+            <option value="Arial Black">Arial Black</option>
+            <option value="Impact">Impact</option>
+            <option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Lucida Console">Lucida Console</option>
+        </select><br><br>
+        <label for="font_transform">Case:</label>
+        <select id="font_transform">
+            <option value="none">select</option>
+            <option value="lowercase">lowercase</option>
+            <option value="uppercase">UPPERCASE</option>
+            <option value="capitalize">Capitalise</option>
+        </select>
+        <br><br>
+        <label for="font_color">Font Color:</label>
+        <input type="color" id="font_color"><br><br>
+        <input type="button" id="cls" value="Clear Text"/><br><br>
+        <label for="file_format">File type:</label>
+        <select id="file_format">
+            <option value="txt">Text file</option>
+            <option value="html">Html file</option>
+            <option value="doc">Ms word Doc</option>
+            <option value="csv">CSV file</option>
+        </select><br><br>
+        <input type="button" id="btn" value="Save" />
+    </div>
+
+    <script src="notepad.js"></script> 
+</body> 
+</html> 

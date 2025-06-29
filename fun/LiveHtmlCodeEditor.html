@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIVE Html Code Code Editor</title>
+    <style>
+        .btns {
+            height: 40px;
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0px;
+            background-color: rgb(32, 39, 47);
+            border-bottom: 1px solid gray;
+        }
+
+        body {
+            margin: 0px;
+            background-color: white;
+        }
+
+        .coding_area {
+            top: 40px;
+            width: 100%;
+            display: flex;
+            position: fixed;
+            left: 0px;
+            height: calc(100% - 40px);
+            flex-direction: row;
+        }
+
+        ol.textarea {
+            width: 50%;
+            left: 0px;
+            border: 1px ridge grey;
+            outline: none;
+            margin: 0px;
+            overflow-y: scroll;
+            font-family: monospace;
+            font-size: 16px;
+            background-color: white;
+        }
+
+        iframe#output {
+            width: 50%;
+            border: none;
+            background-color: white;
+        }
+
+        button:hover,
+        button:active {
+            background-color: rgba(128, 128, 128, 0.191);
+        }
+
+        button {
+            outline: none;
+            border: none;
+            padding: 10px 12px;
+            border-radius: 5px;
+            color: white;
+            background-color: #00bcd4;
+        }
+
+        #run {
+            background-color: rgba(0, 128, 0, 0.657);
+            color: white;
+        }
+
+        #run:hover {
+            border: none;
+            background-color: white;
+            color: rgb(104, 103, 103);
+        }
+
+        #save {
+            background-color: coral;
+        }
+
+        #save:hover {
+            background-color: rgba(217, 0, 255, 0.801);
+            color: rgba(0, 0, 0, 0.904);
+        }
+
+        ol.textarea li:nth-child(even) {
+            background-color: #6c82941a;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: teal;
+            border-radius: 5px;
+        }
+
+        .code_o2 {
+            width: calc(100% - 40px) !important;
+            height: 50% !important;
+        }
+
+        .op_o2 {
+            width: 100% !important;
+            height: 50% !important;
+            top: calc(50% + 10px) !important;
+        }
+
+        .coding_area_o2 {
+            flex-direction: column;
+        }
+
+        ol.textarea li {
+            counter-increment: list;
+            list-style-type: none;
+            position: relative;
+            white-space: pre-wrap;
+        }
+
+        ol.textarea li:before {
+            color: #e75204;
+            content: counter(list) "  ";
+            left: -40px;
+            position: absolute;
+            text-align: right;
+            width: 40px;
+        }
+
+        .file_inp {
+            padding: 8px;
+            background-color: teal;
+            border-radius: 5px;
+        }
+
+        .file_inp:hover,
+        .file_inp:active {
+            background-color: rgba(128, 128, 128, 0.191);
+            ;
+        }
+
+        @media screen and (max-width:480px) {
+            ::-webkit-scrollbar {
+                width: 4px;
+            }
+
+            ol.textarea {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="btns" id="heading">
+        <label for="f_inp" class="file_inp" title="Open File">&#128194;</label>
+        <input type="file" onchange="addFileText()" style="display: none;" id="f_inp" accept="text/html">
+        <button onclick="saveAs()" id="save" title="Save Code">&#128190;</button>
+        <button onclick="changeMode()" id="mode" title="Change Mode">◑</button>
+        <button onclick="ChangeOrient()" id="orient" title="Change Orientation">⊟</button>
+        <button onclick="Run()" id="run" title="Run Code (Ctrl+Enter)" tabindex="0">≫</button>
+        <button style="float: right;padding:5px;" onclick="fullScreenCode(this)" title="Full Screen"><svg
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1"
+                x="0px" y="0px" viewBox="0 0 502.664 502.664" style="enable-background:new 0 0 502.664 502.664;"
+                xml:space="preserve" width="25px" height="25px">
+                <g>
+                    <g>
+                        <g>
+                            <polygon style="fill:white;"
+                                points="390.927,344.744 390.927,399.965 361.354,399.965 433.465,472.055 406.717,498.889      502.664,498.889 502.664,402.877 475.851,429.668    " />
+                            <polygon style="fill:white;"
+                                points="406.717,3.775 433.465,30.587 361.397,102.655 390.927,102.655 390.927,157.92      475.851,73.017 502.664,99.808 502.664,3.775    " />
+                            <polygon style="fill:white;"
+                                points="111.672,399.965 111.672,344.831 26.812,429.647 0,402.877 0,498.889 95.947,498.889      69.199,472.055 141.31,399.965    " />
+                            <polygon style="fill:white;"
+                                points="111.672,157.855 111.672,102.655 141.267,102.655 69.199,30.587 95.947,3.775 0,3.775      0,99.786 26.812,72.996    " />
+                            <rect x="143.877" y="136.888" style="fill:white" width="214.867" height="228.78" />
+                        </g>
+                    </g>
+                </g>
+            </svg></button>
+    </div>
+
+    <div class="coding_area" spellcheck="false" id="cd">
+        <ol class="textarea" contenteditable="true" id="code" onkeydown="runCode(event)">
+            <li>&lt;!DOCTYPE html&gt;</li>
+            <li>&lt;html lang="en"&gt;</li>
+            <li>&lt;head&gt;</li>
+            <li>&lt;title&gt; Document &lt;/title&gt;</li>
+            <li>&lt;/head&gt;</li>
+            <li>&lt;body&gt;</li>
+            <li> </li>
+            <li>&lt;p&gt;hello world&lt;/p&gt;</li>
+            <li> </li>
+            <li>&lt;/body&gt;</li>
+            <li>&lt;/html&gt;</li>
+        </ol>
+
+        <iframe id="output" title="Output"></iframe>
+    </div>
+    <script>
+        let editor = document.getElementById("code");
+        editor.addEventListener("paste", (e) => {
+            e.preventDefault();
+            const text = e.clipboardData.getData('text/plain');
+            document.execCommand("insertText", false, text);
+        });
+        editor.addEventListener("input", () => {
+            if (document.getElementById("code").innerHTML === "") {
+                document.getElementById("code").innerHTML += "<li> </li>"
+            }
+        });
+
+        function Run() {
+            let code = document.getElementById("code").innerText;
+            //const blob = new Blob([code], {type:'text/html'});
+            //const url = URL.createObjectURL(blob);
+            let frm = document.getElementById("output");
+            //frm.src = url;
+            let output = frm.contentWindow.document || frm.contentDocument.document;
+            //console.log(code);
+            output.open();
+            output.writeln(code);
+            output.close();
+        }
+        function ChangeOrient() {
+            document.getElementById("output").classList.toggle("op_o2");
+            document.getElementById("code").classList.toggle("code_o2");
+            document.getElementById("cd").classList.toggle("coding_area_o2");
+
+        }
+        function changeMode() {
+            var txtmd = document.getElementById("mode");
+            if (txtmd.innerText == "◑") {
+                document.getElementById("code").style.backgroundColor = "rgb(32, 39, 47)";
+                document.getElementById("code").style.color = "white";
+                document.getElementById("heading").style.backgroundColor = "rgb(32, 39, 47)";
+                txtmd.innerText = "◐";
+            } else if (txtmd.innerText == "◐") {
+                document.getElementById("code").style.backgroundColor = "white";
+                document.getElementById("heading").style.backgroundColor = "rgb(32, 39, 47)";
+                document.getElementById("code").style.color = "black";
+                txtmd.innerText = "◑";
+            }
+
+        }
+        function fullScreenCode(e) {
+            let isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+                (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+                (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+                (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+            const docElm = document.body;
+            if (!isInFullScreen) {
+                e.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve" width="25px" height="25px">
+                <g>
+                    <g id="fullscreen_x5F_exit">
+                        <g>
+                            <polygon style="fill:white;" points="24.586,27.414 29.172,32 32,29.172 27.414,24.586 32,20 20,20 20,32    "/>
+                            <polygon style="fill:white;" points="0,12 12,12 12,0 7.414,4.586 2.875,0.043 0.047,2.871 4.586,7.414    "/>
+                            <polygon style="fill:white;" points="0,29.172 2.828,32 7.414,27.414 12,32 12,20 0,20 4.586,24.586    "/>
+                            <polygon style="fill:white;" points="20,12 32,12 27.414,7.414 31.961,2.871 29.133,0.043 24.586,4.586 20,0    "/>
+                        </g>
+                    </g>
+                </g>
+
+                </svg>`;
+                e.setAttribute("title", "Exit Full Screen");
+                if (docElm.requestFullscreen) {
+                    docElm.requestFullscreen();
+                } else if (docElm.mozRequestFullScreen) {
+                    docElm.mozRequestFullScreen();
+                } else if (docElm.webkitRequestFullScreen) {
+                    docElm.webkitRequestFullScreen();
+                } else if (docElm.msRequestFullscreen) {
+                    docElm.msRequestFullscreen();
+                }
+            } else {
+                e.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 502.664 502.664" style="enable-background:new 0 0 502.664 502.664;" xml:space="preserve" width="25px" height="25px">
+                <g>
+                    <g>
+                        <g>
+                            <polygon style="fill:white;" points="390.927,344.744 390.927,399.965 361.354,399.965 433.465,472.055 406.717,498.889      502.664,498.889 502.664,402.877 475.851,429.668    "></polygon>
+                            <polygon style="fill:white;" points="406.717,3.775 433.465,30.587 361.397,102.655 390.927,102.655 390.927,157.92      475.851,73.017 502.664,99.808 502.664,3.775    "></polygon>
+                            <polygon style="fill:white;" points="111.672,399.965 111.672,344.831 26.812,429.647 0,402.877 0,498.889 95.947,498.889      69.199,472.055 141.31,399.965    "></polygon>
+                            <polygon style="fill:white;" points="111.672,157.855 111.672,102.655 141.267,102.655 69.199,30.587 95.947,3.775 0,3.775      0,99.786 26.812,72.996    "></polygon>
+                            <rect x="143.877" y="136.888" style="fill:white" width="214.867" height="228.78"></rect>
+                        </g>
+                    </g>
+                </g>
+            </svg>`;
+                e.setAttribute("title", "Full Screen");
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+        function saveAs() {
+            var text = document.getElementById("code").innerText;
+            var filename = "demo";
+            download(filename, text);
+        }
+        function download(file, text) {
+            var element = document.createElement('a');
+            element.setAttribute('href',
+                'data:text/html;charset=utf-8, '
+                + encodeURIComponent(text));
+            element.setAttribute('download', file);
+
+            document.body.appendChild(element);
+            element.click();
+
+            document.body.removeChild(element);
+        }
+        function runCode(event) {
+            if (event.ctrlKey === true && event.keyCode == 13) {
+                Run();
+            }
+        }
+        function addFileText() {
+            const file = document.getElementById("f_inp").files[0];
+            const fr = new FileReader();
+            fr.onloadend = (e) => {
+                let code = e.target.result;
+                if (code.includes("<") || code.includes(">")) {
+                    code = code.replaceAll("<", "&lt;");
+                    code = code.replaceAll(">", "&gt;");
+                }
+                let lines = code.split('\n');
+                let ln = "";
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].trim() === "") {
+                        lines[i] = "<br>"
+                    }
+                    ln += `<li>${lines[i]}</li>`;
+
+                }
+                editor.innerHTML = ln;
+            }
+            fr.readAsText(file);
+        }
+    </script>
+</body>
+
+</html>

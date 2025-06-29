@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            margin: 0px;
+        }
+        table,
+        td {
+            text-align: center;
+        }
+
+        table {
+            margin: auto;
+            color: white;
+            font-size: 4vmin;
+            min-width: 100%;
+            max-width: 100vw;
+            overflow:auto;
+        }
+        .objs{
+            width: 100vw;
+            height: auto;
+            padding-bottom: 20px;
+            background-color: teal;
+            text-align: center;
+            display: block;
+        }
+        input,label{
+            font-size: 3vmin;
+        }
+        input{
+            outline: none;
+            border: none;
+            text-align: center;
+            margin-top: 5px;
+            background-color: rgb(11, 179, 179);
+        }
+        button{
+            outline: none;
+            border: none;
+            padding: 10px;
+            margin:10px;
+            background-color: tomato;
+            color: white;
+            font-size: 3vmin;
+        }
+        button:focus{
+            background-color: coral;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="objs">
+        <label for="inp">Enter the tag name: </label>
+        <input type="search" id="inp" maxlength="10" onkeydown="checkonKey(event)" spellcheck="false">
+        <button onclick="checkTag()">check</button>
+    </div>
+    <br>
+    <table id="output">
+        <caption style="color: teal;">Tag Support</caption>
+    </table>
+    <script>
+        function checkTag() {
+            let tg, op, x, y, tr, td1, td2,chkwrd;
+            tg = document.getElementById("inp").value.toString();
+            op = document.getElementById("output");
+            tr = document.createElement("tr");
+            td1 = document.createElement("td");
+            td2 = document.createElement("td");
+            if(document.getElementsByTagName("tr").length > 9){
+                op.innerHTML = "<caption style='color: teal;''>Tag Support</caption>";
+            }
+            chkwrd = /\W/g;
+            if (tg !== "" && chkwrd.test(tg)===false) {
+                x = document.createElementNS("http://www.w3.org/1999/xhtml", tg).toString();
+                y = document.createElementNS("http://www.w3.org/2000/svg", tg).toString();
+                if (x === "[object HTMLUnknownElement]" && y === "[object SVGElement]") {
+                    td1.innerText = tg;
+                    td2.innerText = "❌";
+                    tr.style.backgroundColor = "tomato";
+                } else {
+                    if (y !== "[object SVGElement]") {
+                        td1.innerText = tg + "(svg)";
+                    } else {
+                        td1.innerText = tg;
+                    }
+                    td2.innerText = "✅";
+                    tr.style.backgroundColor = "yellowgreen";
+                }
+                tr.appendChild(td1); tr.appendChild(td2);
+                op.appendChild(tr)
+            }
+        }
+        function checkonKey(event){
+            let code;
+            code = event.keyCode || event.which;
+            if(code == 13 || code==32){
+                checkTag();
+            }
+        }
+    </script>
+</body>
+
+</html>

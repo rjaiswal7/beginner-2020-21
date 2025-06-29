@@ -1,0 +1,16 @@
+{
+ "name": "Celcious_Fahrenheit_Scale",
+ "version": "0.0.0.1",
+ "manifest_version": 2,
+ "description": "A Edge Extension for Celcious-Fahrenheit Scale",
+ "author": "Ritesh Jaiswal",
+ "icons":{
+    "64": "icons/icon1.png",
+    "128": "icons/icon2.png",
+    "228": "icons/icon3.png"
+ },
+ "browser_action":{
+     "default_popup": "popup/popup.html"
+ }
+
+}

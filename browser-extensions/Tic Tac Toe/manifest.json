@@ -1,0 +1,16 @@
+{
+    "name":"Tic Tac Toe",
+    "description":"a browser extension to play Tic Tac Toe",
+    "version":"0.0.1",
+    "manifest_version":2,
+    "author":"R Jaiswal",
+    "icons":{
+        "64":"icons/icon1.png",
+        "128":"icons/icon2.png",
+        "256":"icons/icon3.png",
+        "512":"icons/icon4.png"
+    },
+    "browser_action":{
+        "default_popup":"popup/popup.html"
+    }
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+</head>
+    <style>
+        body{
+            background-color: white;
+        }
+        #name{
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow:auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4);
+            text-align: center; 
+
+        }
+        .contents{
+            background-color: #fefefe;
+            margin: auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            background-color: rgba(211, 251, 31, 0.917);
+            box-shadow: 20px 20px 40px 40px rgb(0, 255, 0);
+            font-size: xx-large;
+        }
+       .head{
+            background-color: white;
+            left: 5%;
+            height: 10%;
+            width: 90%;
+            background-color:rgba(251, 90, 31, 0.753);
+            color: rgba(140, 0, 255, 0.623);
+            box-shadow:20px 20px 50px grey;
+            text-align:center;
+            position: fixed;
+       }
+       .head:hover{
+           transform: scale(1.5);
+       }
+       .playboard{
+            top: 40%;
+            left: 5%;
+            width: 90%;
+            height: 60%;
+            text-align: center;
+            box-shadow:20px 20px 50px 50px grey;
+            position: fixed;
+        }
+        .scoreboard{
+            top: 15%;
+            left: 6%;
+            width: 90%;
+            height: 20%;
+            background-color: rgb(255, 235, 205);
+            box-shadow:20px 20px 50px rgb(29, 28, 28);
+            position: fixed;
+        }
+        input[type="button"]{
+            width: 33%;
+            height: 32%;
+            background-color: rgba(237, 240, 234, 0.883);
+            font-size: 700%;
+            color: black;
+            margin: auto;
+            box-shadow: 2px 2px 2px 2px grey;
+            outline: none;
+        }
+        .score{
+            width: 10%;
+            height: 20%;
+            background-color: wheat;
+            font-size: large;
+            text-align: center;
+        }
+        button{
+            width: 120px;
+            height: 40px;
+            font-size: 20px;
+        }
+        input[type="button"]:hover{
+            transform: scale(.85);
+            background-color: gray;
+        }
+        button:hover{
+            background-color: rgb(54, 255, 47);
+        }
+        label{
+            font-size: x-large;
+            padding-left: 40px;
+        }
+
+    </style>
+<body>
+        <div class="head">
+            <h1>Tic Tac Toe</h1>
+        </div>
+        <div class="scoreboard">
+            <br>
+            <label for="pl1" id="lb1">Player1 :</label>
+            <input type="number" id="pl1" class="score" value="" disabled><br><br>
+            <label for="pl2" id="lb2">Player2 :</label>
+            <input type="number" id="pl2" class="score" value="" disabled>
+            <button id="re">Reset</button>
+            <button id="nm">New Match</button>
+        </div>
+        <div class="playboard" id="user">
+            <table>
+                <tr>
+                <input type="button" id="a1" value=" ">
+                <input type="button" id="a2" value=" ">
+                <input type="button" id="a3" value=" ">
+                </tr>
+                <tr>
+                <input type="button" id="b1" value=" ">
+                <input type="button" id="b2" value=" ">
+                <input type="button" id="b3" value=" ">
+                </tr>
+                <tr>
+                <input type="button" id="c1" value=" ">
+                <input type="button" id="c2" value=" ">
+                <input type="button" id="c3" value=" ">
+                </tr>
+            </table>
+        </div>
+
+        <div id="name">
+        <div class="contents">
+            <h1>Tic Tac Toe</h1>
+            <h3>Write the Players Names!</h3><br>
+            <label for="player1">Player1</label>
+            <input type="text" id="player1" placeholder="Name..." style="width: 30%;height: 40px;"><br><br><br>
+            <label for="player2">Player2</label>
+            <input type="text" id="player2" placeholder="Name..." style="width: 30%;height: 40px;"><br><br>
+            <button id="nameSubmit">Submit</button>
+        </div>
+        </div>
+    <script src="tictactoe.js"></script>
+</body>
+</html>

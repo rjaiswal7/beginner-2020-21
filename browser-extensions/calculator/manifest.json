@@ -1,0 +1,16 @@
+{
+    "name":"calculator",
+    "version":"0.0.1",
+    "manifest_version":2,
+    "author":"R Jaiswal",
+    "description":"It is is browser calculator",
+    "icons":{
+        "64":"icons/icon1.png",
+        "128":"icons/icon2.png",
+        "256":"icons/icon3.png",
+        "512":"icons/icon4.png"
+    },
+    "browser_action":{
+        "default_popup":"popup/popup.html"
+    }
+}

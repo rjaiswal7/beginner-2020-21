@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celcious-Fahrenheit Scale</title>
+        <style>
+            body{
+                width: 500px;
+                height: 584px;
+            }
+            .upPart{
+                background-color: #1c9e27;
+                top: 0;
+                left: 0;
+                height: 10%;
+                width: 100%;
+                position: fixed;
+                text-align: center;
+                font-size: 100%;
+            }
+            .clPart{
+                background-color: rgba(128, 128, 128, 0.616);
+                top: 15%;
+                left: 0;
+                height: 85%;
+                width: 50%;
+                position: fixed;
+                text-align: center;
+            }
+            .frnhPart{
+                background-color: aqua;
+                top: 15%;
+                left: 50%;
+                height: 85%;
+                width: 50%;
+                position: fixed; 
+                text-align: center;               
+            }
+            .choose{
+                top: 10%;
+                left: 0%;
+                width: 100%;
+                height: 10%;
+                position: fixed;
+            }
+            .Cscale{
+                top: 16%;
+                left: 10%;
+                position: fixed;
+                text-align: center;
+                background-color: rgb(251, 92, 0);
+                font-size: 200%;
+                height: 510px;
+            }
+            .Fscale{
+                top: 16%;
+                left: 60%;
+                position: fixed;
+                text-align: center;
+                background-color: rgb(251, 92, 0);
+                font-size: 200%;
+                height: 510px;                
+            }
+            #Ctube{
+                top: 16%;
+                left: 25%;
+                position: fixed;
+                background-color: red;
+                width: 70px;
+                height: 505px;
+                border-radius: 100px;
+            }
+            #Ftube{
+                top: 16%;
+                left: 75%;
+                position: fixed;
+                background-color: red;
+                width: 70px;
+                height: 505px;
+                border-radius: 100px;                
+            }
+            .Cfill{
+                position: fixed;
+                background-color:white;
+                height:370px;
+                width: 70px;
+                border-radius: 50px 50px 0px 0px;
+            }
+            .Ffill{
+                position: fixed;
+                background-color:white;
+                height:370px;
+                width: 70px;
+                border-radius: 50px 50px 0px 0px;                
+            }
+            button{
+                background-color: #670eb9;
+                padding: 5%;
+                font-size: x-large;
+            }
+            input[type = "range"]{
+                width: 40%;              
+            }
+            input[type = "text"]{
+                font-size: x-large; 
+                width: 15%;              
+            }
+            #close{
+                top: 0%;
+                left: 95%;
+                width: 5%;
+                height: 5%;
+                background-color: #1c9e27;
+                color: white;
+                padding: 0%;
+                position: fixed;
+            }
+            #close:hover{
+                background-color:red;
+            }
+        </style>
+    </head>
+<body>
+    <div class="upPart">
+        <button id="close">X</button>
+         <h1>Celcious-Fahrenheit Scale</h1>
+    </div>
+    <div class="choose">
+        <select name="clfrh" id="clfrh">
+            <option value="">---select---</option>
+            <option value="clTofh">Celcious</option>
+            <option value="fhTocl">Fahrenheit</option>
+        </select>
+        <input type="range" id="vl" value="0" min="-40">
+        <input type="text" id="op" disabled>
+        <label for="op" id="clb"><sup>o</sup>C</label>
+        <input type="text" id="op1" disabled>
+        <label for="op1" id="flb"><sup>o</sup>F</label>
+    </div>
+    <div class="clPart">
+        
+        <div class="Cscale">
+            <table id="cnm">
+            </table>
+        </div>
+
+        <div id="Ctube" hidden>
+           <div id="Cfl" class="Cfill" >
+           </div>
+        </div>
+        
+    </div>
+    <div class="frnhPart">
+        
+        <div class="Fscale">
+            <table id="fnm">
+            </table>
+        </div>
+
+        <div id="Ftube" hidden>
+           <div id="Ffl" class="Ffill">
+           </div>
+        </div>        
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>

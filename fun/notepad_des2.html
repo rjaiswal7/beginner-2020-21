@@ -1,0 +1,191 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+       <style type="">
+            body{
+                background-color:rgb(179, 179, 179);
+                color: black;
+            }
+            .up{
+                top: 0%;
+                left: 0%;
+                width: 100%;
+                position: fixed;
+                height: 5vh;
+                text-align: center;
+            }
+            .txtbdy{
+                left: 1%;
+                top: 25vh;
+                width: 100%;
+                height: 80%;
+                position: fixed;
+            }
+            .choose{
+                top: 8%;
+                width: 98%;
+                height: 15vh;
+                left: 1%;
+                position:fixed;
+                text-align: center;
+                background-color:coral;
+                font-size: 20px;
+                box-shadow: 10px 4px 10px 4px rgb(52, 52, 52);
+                border-radius: 10px;
+            }
+            textarea {
+                width: 98%;
+                height:70vh;
+                padding: 5px;
+                box-sizing:border-box;
+                border: none;
+                border-radius: 5px;
+                resize:inherit;
+                font-size: 20px;
+                outline: none;
+                box-shadow: 10px 4px 10px 4px rgb(52, 52, 52);
+            }
+            select{
+                width: auto;
+                height: auto;
+                background-color:rgba(255, 0, 0, 0.561);
+                outline: none;
+                border: none;
+                font-size: 20px;
+                border-radius: 10px;
+            }
+            #fsr{
+                width: auto;
+            }
+            input[type="button"]{
+                width: auto;
+                outline: none;
+                border: none;
+                font-size: 20px;
+                background-color:rgb(3, 196, 154);
+                font-style: oblique;
+            }
+            input[type="button"]:hover{
+                background-color: crimson;
+            }
+            @media screen and (max-width: 400px) {
+                input[type="button"],.choose,select{
+                    font-size: 40px;
+                }
+            }
+       </style>
+    </head> 
+<body>
+    <div class="up">
+        <h1>Notepad</h1>
+    </div>
+    
+    <div class="choose">
+        <br>
+        <input id="inmd" type="button" value="Dark Mode">
+        <label for="fsr">Font-size:</label>
+        <input type="range" id="fsr" min="20" max="60" value="20">
+        <label for="font_family">Font: </label>
+        <select id="font_family">
+            <option value="initial">select</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Palatino Linotype">Palatino Linotype</option>
+            <option value="Book Antiqua">Book Antiqua</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Arial">Arial</option>
+            <option value="Arial Black">Arial Black</option>
+            <option value="Impact">Impact</option>
+            <option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Lucida Console">Lucida Console</option>
+        </select><br>
+        <label for="font_transform">Case:</label>
+        <select id="font_transform">
+            <option value="none">select</option>
+            <option value="lowercase">lowercase</option>
+            <option value="uppercase">UPPERCASE</option>
+            <option value="capitalize">Capitalise</option>
+        </select>
+        
+        <input type="button" id="cls" value="Clear Text"/>
+        <input type="button" id="btn" value="Save" />
+    </div><br>
+    <div class="txtbdy">
+        <textarea id="text" spellcheck="false"></textarea>
+    </div>
+
+    <script>
+        document.getElementById("inmd").addEventListener("click",inpm);
+        document.getElementById("fsr").addEventListener("change",changefontsize);
+        document.getElementById("font_family").addEventListener("change",changefontfamily);
+        document.getElementById("font_transform").addEventListener("change",caseConvert);
+        document.getElementById("cls").addEventListener("click",clean);
+
+        /*saving file as file.txt */
+        function download(file, text) {
+            if(text.trim()==""){ 
+                alert("note is empty!");
+            }else{
+                var element = document.createElement('a'); 
+                element.setAttribute('href', 
+                'data:text/plain;charset=utf-8, ' 
+                + encodeURIComponent(text)); 
+                element.setAttribute('download', file); 
+                document.body.appendChild(element); 
+                element.click(); 
+                document.body.removeChild(element); 
+            }
+        } 
+        document.getElementById("btn") 
+        .addEventListener("click", function() {
+            var text =  document.getElementById("text").value;
+            var filename = "note.txt"; 
+
+            download(filename, text); 
+        }, false);
+
+        /*changing font size */
+        function changefontsize(){
+            var fs = document.getElementById("fsr").value;
+            document.getElementById("text").style.fontSize = fs+"px";
+        }
+
+        /*changing font family */
+        function changefontfamily(){
+            var ff = document.getElementById("font_family").value;
+            document.getElementById("text").style.fontFamily = ff;
+        }
+
+        /*changing font case */
+        function caseConvert(){
+            let cc = document.getElementById("font_transform").value;
+            document.getElementById("text").style.textTransform = cc;
+        }
+
+        /*changing display mode*/
+        function inpm(){
+            var txtmd = document.getElementById("inmd");
+            if(txtmd.value == "Dark Mode"){
+                document.getElementById("text").style.backgroundColor = "rgb(12, 9, 9)";
+                document.getElementById("text").style.color = "white";
+                document.body.style.backgroundColor = "black";
+                document.body.style.color = "white";
+                txtmd.value = "Light Mode";
+            }else if(txtmd.value == "Light Mode"){
+                document.getElementById("text").style.backgroundColor = "white";
+                document.getElementById("text").style.color = "black";
+                document.body.style.backgroundColor = "rgb(179, 179, 179)";
+                document.body.style.color = "black";
+                txtmd.value = "Dark Mode";       
+            }
+
+        }
+        /*clearing text*/
+        function clean(){
+            document.getElementById("text").value = "";
+        }
+    </script> 
+</body> 
+</html> 

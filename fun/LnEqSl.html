@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Eq Solver</title>
+    <style>
+        body{
+            background-color: black;
+            color: blanchedalmond;
+            text-align: center;
+        }
+        #input{
+            margin: auto;
+            width: 60%;
+            height: 50px;
+            text-align: center;
+            font-size: xx-large;
+        }
+        #output{
+            margin: auto;
+            width: 30%;
+            height: 50px;
+            text-align: center;
+            font-size: xx-large;
+        }
+        label{
+            font-size: xx-large;
+        }
+        .btn{
+            margin: 2px;
+            width: auto;
+            height: 50px;
+            text-align: center;
+            font-size: xx-large;
+        }
+        .btn:hover{
+            background-color: rgba(6, 236, 217, 0.685);
+        }
+    </style>
+</head>
+<body>
+   <h1 style="text-align: center;">
+       <b><i>Linear Equation Solver (first degree)</i></b>
+   </h1>
+   <label for="input">Enter the Equation:</label>
+   <input type="text" id="input" placeholder="Ex: 4x+2 = 1x+4"><br><br>
+   <label for="output">Answer :</label>
+   <input type="text" readonly id="output"><br><br>
+   <button onclick="solve()" class="btn">Solve</button>
+   <h4 style="top: 95%;text-align: left;">Note: write 'x' as '1x'.</h4>
+   <script>
+            function solve(){
+                document.getElementById("output").value = "";
+                var num,den;
+                var vl = document.getElementById("input").value;
+                var input = vl.trim();
+                var eqsn = input.indexOf("=");
+                var rgtp = input.substring(eqsn+1,input.length+1);
+                var lftp = input.substring(0,eqsn);
+
+                var rgfo1 = eval(rgtp.replace(/x/g,"*1"));
+                var rgfo_1 = eval(rgtp.replace(/x/g,"*-1"));
+                var lffo1 = eval(lftp.replace(/x/g,"*1"));
+                var lffo_1 = eval(lftp.replace(/x/g,"*-1"));
+
+                var rgfo2 = eval(rgtp.replace(/x/g,"*2"));
+                var rgfo_2 = eval(rgtp.replace(/x/g,"*-2"));
+                var lffo2 = eval(lftp.replace(/x/g,"*2"));
+                var lffo_2 = eval(lftp.replace(/x/g,"*-2"));                
+                if(isFinite(rgfo1) && isFinite(lffo1) && isFinite(rgfo_1) && isFinite(lffo_1)){
+                    
+                    num = lffo1+lffo_1-(rgfo1+rgfo_1);      
+                    den = lffo1+rgfo_1-(lffo_1+rgfo1);
+                    
+                }else{
+                    num = lffo2+lffo_2-(rgfo2+rgfo_2);
+                    den = (lffo2+rgfo_2-(lffo_2+rgfo2))/2;
+                }
+                if(den == 0){
+                    document.getElementById("output").value = "No Solution";
+                }else if(Number.isSafeInteger(num) && Number.isSafeInteger(den)){
+                    var ans = eval(num*(-1)+'/'+den);
+                    document.getElementById("output").value = "x = "+ans;
+                }else{
+                    var ans = eval(num*(-1)+'/'+den);
+                    document.getElementById("output").value = "x = "+ans.toFixed(3);
+                }
+            }
+   </script>
+</body>
+</html>
